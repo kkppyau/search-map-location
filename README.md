@@ -26,23 +26,40 @@ yarn install
 
 ### Running the Project
 
-````bash
+```bash
 npm run dev
 # or
 yarn dev
+```
 
-### Building the Project
+### Building the Project for production
 
 ```bash
 npm run build
 # or
 yarn build
+```
 
 ## Environment Variables
 
-| Variable            | Description         | Example                           |
-| ------------------- | ------------------- | --------------------------------- |
-| NEXT_PUBLIC_API_URL | API endpoint URL    | https://api.example.com           |
+| Variable            | Description      | Example                 |
+| ------------------- | ---------------- | ----------------------- |
+| NEXT_PUBLIC_API_URL | API endpoint URL | https://api.example.com |
+
+## Potential Improvements
+
+### 1. Multiple Environment Support
+
+- Currently, the application supports only one environment configuration
+- Implement support for multiple environments (development, staging, production)
+- Add environment-specific configuration files and variables
+- Create documentation for environment setup and switching
+
+### 2. Testing
+
+- Add unit tests for React **components**
+- Add end-to-end testing using Selenium or Playwright, etc
+- Set up continuous integration pipeline for deployment and automated testing
 
 ## Important Notes
 
@@ -53,4 +70,3 @@ yarn build
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
-````
