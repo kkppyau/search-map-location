@@ -1,0 +1,1 @@
+export const GET_ROUTE_QUERY_KEY = 'GET_ROUTE_QUERY_KEY';
