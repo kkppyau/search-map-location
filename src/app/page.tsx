@@ -15,8 +15,8 @@ export default function Home() {
     const { routeData, isFetching, error, fetchRouteData } = useRouteData();
 
     return (
-        <main className='flex'>
-            <div className='flex w-1/3 flex-col gap-4 p-4'>
+        <main className='md:flex'>
+            <div className='flex h-[30vh] w-full flex-col gap-4 p-4 md:h-auto md:w-1/3'>
                 <RouteForm
                     isFetching={isFetching}
                     fetchRouteData={fetchRouteData}
@@ -38,7 +38,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className='h-screen w-2/3'>
+            <div className='h-[70vh] w-full md:h-screen md:w-2/3'>
                 <Map waypoints={routeData?.path || []} />
             </div>
         </main>
