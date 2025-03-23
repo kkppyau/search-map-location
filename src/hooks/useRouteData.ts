@@ -18,7 +18,12 @@ export const useRouteData = () => {
         Error,
         PostRouteRequest
     >({
-        mutationFn: postRoute,
+        mutationFn: async (body: PostRouteRequest) => {
+            queryClient.resetQueries({
+                queryKey: [GET_ROUTE_QUERY_KEY],
+            });
+            return await postRoute(body);
+        },
         onSuccess: (data) => {
             queryClient.invalidateQueries({
                 queryKey: [GET_ROUTE_QUERY_KEY, data],

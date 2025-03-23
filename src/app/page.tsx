@@ -16,26 +16,24 @@ export default function Home() {
 
     return (
         <main className='md:flex'>
-            <div className='flex h-[30vh] w-full flex-col gap-4 p-4 md:h-auto md:w-1/3'>
+            <div className='h-[30vh] w-full flex-col space-y-4 p-4 md:h-auto md:w-1/3'>
                 <RouteForm
                     isFetching={isFetching}
                     fetchRouteData={fetchRouteData}
                 />
 
-                <div>
-                    {routeData?.status === RouteStatus.SUCCESS && (
-                        <div className='rounded-md bg-green-50 p-4 text-green-800'>
-                            <p>Total Distance: {routeData.total_distance}</p>
-                            <p>Total Time: {routeData.total_time}</p>
-                        </div>
-                    )}
+                {routeData?.status === RouteStatus.SUCCESS && (
+                    <div className='rounded-md bg-green-50 p-4 text-green-800'>
+                        <p>Total Distance: {routeData.total_distance}</p>
+                        <p>Total Time: {routeData.total_time}</p>
+                    </div>
+                )}
 
-                    {!!error && (
-                        <div className='rounded-md bg-red-50 p-4 text-red-800'>
-                            <p>Error: {error}</p>
-                        </div>
-                    )}
-                </div>
+                {!!error && (
+                    <div className='rounded-md bg-red-50 p-4 text-red-800'>
+                        <p>Error: {error}</p>
+                    </div>
+                )}
             </div>
 
             <div className='h-[70vh] w-full md:h-screen md:w-2/3'>
