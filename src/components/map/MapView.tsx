@@ -8,7 +8,7 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 
 import { MapWaypoint } from './MapWaypoint';
 
-type LeafletMapProps = {
+type MapViewProps = {
     waypoints: [number, number][];
 };
 
@@ -20,7 +20,7 @@ const DEFAULT_LAN_LONG = [22.302711, 114.177216];
  * @param waypoints - The waypoints to display on the map
  * @returns A component that displays a map
  */
-const LeafletMap = ({ waypoints }: LeafletMapProps) => {
+const MapView = ({ waypoints }: MapViewProps) => {
     return (
         <MapContainer
             style={{ height: '100%', minHeight: '100%' }}
@@ -44,4 +44,4 @@ const LeafletMap = ({ waypoints }: LeafletMapProps) => {
     );
 };
 
-export default LeafletMap;
+export default MapView;

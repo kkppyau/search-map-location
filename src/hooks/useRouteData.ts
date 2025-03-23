@@ -60,6 +60,7 @@ export const useRouteData = () => {
     return {
         routeData,
         fetchRouteData: routeTokenMutation.mutateAsync,
-        isLoading: routeTokenMutation.isPending || routeQuery.isFetching,
+        isFetching: routeTokenMutation.isPending || routeQuery.isFetching,
+        error: routeTokenMutation.error?.message || routeQuery.error?.message,
     };
 };

@@ -1,29 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
-import { useRouteData } from '@/hooks/useRouteData';
 import { routeFormSchema, RouteFormSchema } from '@/schemas/routeForm';
 
 export const useRouteForm = () => {
-    const { fetchRouteData } = useRouteData();
-
-    const { control, handleSubmit, reset, setValue } = useForm<RouteFormSchema>(
-        {
+    const { control, formState, handleSubmit, reset, setValue } =
+        useForm<RouteFormSchema>({
             resolver: yupResolver(routeFormSchema),
             mode: 'onBlur',
             defaultValues: {
                 origin: '',
                 destination: '',
             },
-        },
-    );
-
-    const onSubmit = handleSubmit(async (data) => {
-        await fetchRouteData({
-            origin: data.origin.trim(),
-            destination: data.destination.trim(),
         });
-    });
 
     const onReset = () => {
         reset();
@@ -35,7 +24,8 @@ export const useRouteForm = () => {
 
     return {
         control,
-        onSubmit,
+        isSubmitting: formState.isSubmitting,
+        handleSubmit,
         onReset,
         onClear,
     };

@@ -1,68 +1,45 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Controller } from 'react-hook-form';
 
-import { Button } from '@/components/form/Button';
-import { Input } from '@/components/form/Input';
+import { RouteForm } from '@/components/features/RouteForm';
 import { useRouteData } from '@/hooks/useRouteData';
-import { useRouteForm } from '@/hooks/useRouteForm';
+import { RouteStatus } from '@/types/route';
 
-const Map = dynamic(() => import('@/components/map/LeafletMap'), {
+const Map = dynamic(() => import('@/components/map/MapView'), {
     loading: () => <p>Loading...</p>,
     ssr: false,
 });
 
 export default function Home() {
-    const { routeData } = useRouteData();
-    const { control, onSubmit, onReset, onClear } = useRouteForm();
+    const { routeData, isFetching, error, fetchRouteData } = useRouteData();
 
     return (
         <main className='flex'>
-            <form className='space-y-4 p-4' onSubmit={onSubmit}>
-                <Controller
-                    control={control}
-                    name='origin'
-                    render={({ field, fieldState: { error } }) => (
-                        <Input
-                            label='Starting location'
-                            {...field}
-                            onClear={() => onClear('origin')}
-                            error={error?.message}
-                        />
-                    )}
+            <div className='flex w-1/3 flex-col gap-4 p-4'>
+                <RouteForm
+                    isFetching={isFetching}
+                    fetchRouteData={fetchRouteData}
                 />
 
-                <Controller
-                    control={control}
-                    name='destination'
-                    render={({ field, fieldState: { error } }) => (
-                        <Input
-                            label='Drop-off Point'
-                            {...field}
-                            onClear={() => onClear('destination')}
-                            error={error?.message}
-                        />
+                <div>
+                    {routeData?.status === RouteStatus.SUCCESS && (
+                        <div className='rounded-md bg-green-50 p-4 text-green-800'>
+                            <p>Total Distance: {routeData.total_distance}</p>
+                            <p>Total Time: {routeData.total_time}</p>
+                        </div>
                     )}
-                />
 
-                <div className='flex space-x-2'>
-                    <Button type='submit'>Submit</Button>
-
-                    <Button
-                        onClick={(e) => {
-                            e.preventDefault();
-                            onReset();
-                        }}
-                        variant='secondary'
-                    >
-                        Reset
-                    </Button>
+                    {!!error && (
+                        <div className='rounded-md bg-red-50 p-4 text-red-800'>
+                            <p>Error: {error}</p>
+                        </div>
+                    )}
                 </div>
-            </form>
+            </div>
 
-            <div className='h-screen w-full'>
-                <Map waypoints={routeData.path} />
+            <div className='h-screen w-2/3'>
+                <Map waypoints={routeData?.path || []} />
             </div>
         </main>
     );
